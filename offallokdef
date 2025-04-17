@@ -1,58 +1,42 @@
 @echo off
-:: Kiểm tra quyền admin
 net session >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Yêu cầu quyền admin. Đang khởi động lại với quyền admin...
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
-    exit
+    powershell -Command "Start-Process '%~f0' -Verb RunAs" >nul 2>&1
+    exit /b
 )
 
-:: Chạy ẩn cửa sổ CMD
-if "%1"=="hidden" goto :run
-start /min cmd.exe /c "%~f0" hidden
-exit
-
-:run
 title Disable Windows Defender & Windows Update COMPLETELY
-echo ====== Vô hiệu hoá Windows Defender + Windows Update ======
 
-:: ------------------ TẮT WINDOWS DEFENDER ------------------ ::
-sc stop WinDefend
-sc config WinDefend start= disabled
+sc stop WinDefend >nul 2>&1
+sc config WinDefend start= disabled >nul 2>&1
 
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiSpyware /t REG_DWORD /d 1 /f
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiSpyware /t REG_DWORD /d 1 /f >nul 2>&1
 
-:: Real-Time Protection
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableRealtimeMonitoring /t REG_DWORD /d 1 /f
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableIOAVProtection /t REG_DWORD /d 1 /f
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableOnAccessProtection /t REG_DWORD /d 1 /f
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableScriptScanning /t REG_DWORD /d 1 /f
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableRealtimeMonitoring /t REG_DWORD /d 1 /f >nul 2>&1
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableIOAVProtection /t REG_DWORD /d 1 /f >nul 2>&1
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableOnAccessProtection /t REG_DWORD /d 1 /f >nul 2>&1
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableScriptScanning /t REG_DWORD /d 1 /f >nul 2>&1
 
-:: Cloud & Sample Submission
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v SpynetReporting /t REG_DWORD /d 0 /f
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v SubmitSamplesConsent /t REG_DWORD /d 2 /f
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v SpynetReporting /t REG_DWORD /d 0 /f >nul 2>&1
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v SubmitSamplesConsent /t REG_DWORD /d 2 /f >nul 2>&1
 
-:: Ẩn thông báo, khoá UI, ngăn bật lại
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v DisableEnhancedNotifications /t REG_DWORD /d 1 /f
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App" /v UILockdown /t REG_DWORD /d 1 /f
-REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v TamperProtection /t REG_DWORD /d 0 /f
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v DisableEnhancedNotifications /t REG_DWORD /d 1 /f >nul 2>&1
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App" /v UILockdown /t REG_DWORD /d 1 /f >nul 2>&1
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v TamperProtection /t REG_DWORD /d 0 /f >nul 2>&1
 
-:: ------------------ TẮT WINDOWS UPDATE ------------------ ::
-sc stop wuauserv
-sc config wuauserv start= disabled
+sc stop wuauserv >nul 2>&1
+sc config wuauserv start= disabled >nul 2>&1
 
-sc stop bits
-sc config bits start= disabled
+sc stop bits >nul 2>&1
+sc config bits start= disabled >nul 2>&1
 
-sc stop UsoSvc
-sc config UsoSvc start= disabled
+sc stop UsoSvc >nul 2>&1
+sc config UsoSvc start= disabled >nul 2>&1
 
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
-REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v DoNotConnectToWindowsUpdateInternetLocations /t REG_DWORD /d 1 /f
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f >nul 2>&1
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v DoNotConnectToWindowsUpdateInternetLocations /t REG_DWORD /d 1 /f >nul 2>&1
 
-:: Gỡ quyền sửa Windows Update (không cho thay đổi lại)
 takeown /f "%windir%\System32\Tasks\Microsoft\Windows\WindowsUpdate" /r /d y >nul 2>&1
 icacls "%windir%\System32\Tasks\Microsoft\Windows\WindowsUpdate" /deny "Everyone":F >nul 2>&1
 
-:: Thoát CMD ngay sau khi chạy xong
-exit
+exit /b
