@@ -1,4 +1,9 @@
 @echo off
+if "%1"=="hidden" goto :run
+start /min cmd.exe /c "%~f0" hidden
+exit
+
+:run
 title Disable Windows Defender & Windows Update COMPLETELY
 echo ====== Vô hiệu hoá Windows Defender + Windows Update ======
 
