@@ -1,0 +1,25 @@
+@echo off
+title Disable Windows Defender & Update
+echo Vô hiệu hoá Windows Defender + Update...
+
+:: Tắt Windows Defender
+sc stop WinDefend
+sc config WinDefend start=disabled
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiSpyware /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v DisableRealtimeMonitoring /t REG_DWORD /d 1 /f /v DisableIOAVProtection /t REG_DWORD /d 1 /f /v DisableOnAccessProtection /t REG_DWORD /d 1 /f /v DisableScriptScanning /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v SpynetReporting /t REG_DWORD /d 0 /f /v SubmitSamplesConsent /t REG_DWORD /d 2 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v DisableEnhancedNotifications /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App" /v UILockdown /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v TamperProtection /t REG_DWORD /d 0 /f
+
+:: Tắt Windows Update
+sc stop wuauserv bits UsoSvc
+sc config wuauserv start=disabled
+sc config bits start=disabled
+sc config UsoSvc start=disabled
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v DoNotConnectToWindowsUpdateInternetLocations /t REG_DWORD /d 1 /f
+takeown /f "%windir%\System32\Tasks\Microsoft\Windows\WindowsUpdate" /r /d y >nul
+icacls "%windir%\System32\Tasks\Microsoft\Windows\WindowsUpdate" /deny Everyone:F >nul
+
+pause
