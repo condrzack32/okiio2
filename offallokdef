@@ -1,4 +1,13 @@
 @echo off
+:: Kiểm tra quyền admin
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Yêu cầu quyền admin. Đang khởi động lại với quyền admin...
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    exit
+)
+
+:: Chạy ẩn cửa sổ CMD
 if "%1"=="hidden" goto :run
 start /min cmd.exe /c "%~f0" hidden
 exit
@@ -45,7 +54,5 @@ REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v DoNotConnect
 takeown /f "%windir%\System32\Tasks\Microsoft\Windows\WindowsUpdate" /r /d y >nul 2>&1
 icacls "%windir%\System32\Tasks\Microsoft\Windows\WindowsUpdate" /deny "Everyone":F >nul 2>&1
 
-echo.
-echo .
-echo 
-pause
+:: Thoát CMD ngay sau khi chạy xong
+exit
