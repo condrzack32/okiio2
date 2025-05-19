@@ -1,0 +1,10 @@
+[2025-05-19 11:42:51] Renamed: kkk_123456.exe -> _Prject_new_2025_144301.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_Prject_new_2025_220564.zip
+[2025-05-19 11:42:53] Renamed: kkk_123456.exe -> _Prject_new_2025_378532.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_Prject_new_2025_853297.zip
+[2025-05-19 11:42:59] Renamed: kkk_123456.exe -> _Prject_new_2025_555648.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_Prject_new_2025_223840.zip
+[2025-05-19 11:45:30] Renamed: kkk_123456.exe -> _Global_partner_project_list_2025_916758.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_Global_partner_project_list_2025_682049.zip
+[2025-05-19 11:45:45] Renamed: kkk_123456.exe -> _Global_partner_project_list_2025_377780.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_Global_partner_project_list_2025_886058.zip
+[2025-05-19 11:46:03] Renamed: kkk_123456.exe -> _Global_partner_project_list_2025_851718.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_Global_partner_project_list_2025_607670.zip
+[2025-05-19 11:47:55] Renamed: kkk_123456.exe -> _Global_partner_project_list_2025_970560.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_Global_partner_project_list_2025_891319.zip
+[2025-05-19 11:51:37] Renamed: kkk_123456.exe -> _ohohkgk_232_967172.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_ohohkgk_232_890337.zip
+[2025-05-19 11:51:39] Renamed: kkk_123456.exe -> _ohohkgk_232_735998.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_ohohkgk_232_913063.zip
+[2025-05-19 11:51:54] Renamed: kkk_123456.exe -> _ohohkgk_232_737199.exe, ZIP: G:/bot 2025/test cc/test change name + nen zip/Output\_ohohkgk_232_160277.zip
